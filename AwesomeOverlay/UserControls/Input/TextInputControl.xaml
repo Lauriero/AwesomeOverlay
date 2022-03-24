@@ -1,0 +1,32 @@
+﻿<UserControl x:Class="AwesomeOverlay.UserControls.Input.TextInputControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:AwesomeOverlay.UserControls.Input"
+             mc:Ignorable="d" 
+             x:Name="Control"
+             d:DesignHeight="79.75" d:DesignWidth="345.13">
+
+    <Border BorderThickness="0,0,0,2" x:Name="TextPlainBorder" BorderBrush="#D1D1D1">
+        <StackPanel Orientation="Vertical">
+            <!--Field description-->
+            <TextBlock Text="{Binding ElementName=Control, Path=FieldDescription}" FontSize="30" Margin="3,0,0,0"
+                       FontFamily="Lato" FontWeight="Medium" Foreground="{DynamicResource TextFieldDescriptionColor}" />
+
+            <Grid>
+                <!--Field placeholder-->
+                <TextBlock Text="{Binding ElementName=Control, Path=Placeholder}" FontSize="30" 
+                           Opacity="1" Margin="3,10,0,4" FontFamily="Lato" FontWeight="Regular"
+                           Name="PlaceholderTextBlock" VerticalAlignment="Center" Foreground="{DynamicResource TextFieldPlaceholderColor}" />
+
+                <!--Input control-->
+                <TextBox Margin="0,10,0,4" Foreground="{DynamicResource TextColor}" 
+                         FontSize="30" FontWeight="Regular" FontFamily="Lato" 
+                         BorderThickness="0" Name="PlainText" Background="Transparent"  
+                         Text="{Binding ElementName=Control, Path=Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  
+                         LostFocus="PlainText_LostFocus" GotFocus="PlainText_GotFocus" TextChanged="PlainText_TextChanged"/>
+            </Grid>
+        </StackPanel>
+    </Border>
+</UserControl>

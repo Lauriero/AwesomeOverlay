@@ -1,0 +1,388 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:AwesomeOverlay.Resources"
+                    xmlns:controls="clr-namespace:AwesomeOverlay.UserControls"
+                    xmlns:vmu="clr-namespace:AwesomeOverlay.ViewModels.Users"
+                    xmlns:vmus="clr-namespace:AwesomeOverlay.ViewModels.UserServices"
+                    xmlns:vmna="clr-namespace:AwesomeOverlay.ViewModels.Notifications.Attachments"
+                    xmlns:vmnaa="clr-namespace:AwesomeOverlay.ViewModels.Notifications.Attachments.Abstractions"
+                    xmlns:vmnm="clr-namespace:AwesomeOverlay.ViewModels.Notifications.Messages"
+                    xmlns:decorators="clr-namespace:AwesomeOverlay.Decorators"
+                    xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+                    xmlns:ap="clr-namespace:AwesomeOverlay.AttachedPropertyOwners" >
+
+    <DataTemplate DataType="{x:Type vmu:UserVM}">
+        <StackPanel Orientation="Vertical" Name="RootPanel" Background="{DynamicResource RightPanelBackground}">
+            <StackPanel.InputBindings>
+                <MouseBinding MouseAction="LeftClick" Command="{Binding ElementController.SelectCommand}" />
+            </StackPanel.InputBindings>
+            
+            <!--Divider-->
+            <Border Height=".5" Opacity=".23" Margin="22,0" Background="{DynamicResource DividersColor}">
+                <Border.Style>
+                    <Style TargetType="Border">
+                        <Setter Property="Visibility" Value="Visible" />
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding RelativeSource={RelativeSource Mode=PreviousData}}" Value="{x:Null}">
+                                <Setter Property="Visibility" Value="Collapsed" />
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Border.Style>
+            </Border>
+
+            <StackPanel Orientation="Horizontal" Margin="0,26">
+                
+                <!--Selected tile-->
+                <Border HorizontalAlignment="Left" Width="9" Height="67" CornerRadius="0,9,9,0" VerticalAlignment="Center" 
+                        Background="{Binding ServiceColor, Converter={StaticResource ColorConverter}}">
+
+                    <Border.Style>
+                        <Style TargetType="Border">
+                            <Setter Property="Visibility" Value="Hidden" />
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding ElementName=RootPanel, Path=IsMouseOver}" Value="True">
+                                    <Setter Property="Visibility" Value="Visible" />
+                                </DataTrigger>
+
+                                <DataTrigger Binding="{Binding ElementController.Selected}" Value="True">
+                                    <Setter Property="Visibility" Value="Visible" />
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Border.Style>
+                </Border>
+
+                <!--User avatar-->
+                <Ellipse Width="81" Height="81" DockPanel.Dock="Left" VerticalAlignment="Center" Margin="42,0,0,0">
+                    <Ellipse.Fill>
+                        <ImageBrush ImageSource="{Binding Avatar, Converter={StaticResource UriToImageConverter}}" Stretch="Uniform"/>
+                    </Ellipse.Fill>
+                </Ellipse>
+
+                <!--User info-->
+                <StackPanel Orientation="Vertical" Margin="20,0,0,0" VerticalAlignment="Center">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="{Binding FirstName}" FontFamily="Lato" FontSize="25" FontWeight="SemiBold" Foreground="{DynamicResource TextColor}"/>
+
+                        <TextBlock Text="{Binding SecondName}" FontFamily="Lato" FontSize="25" FontWeight="SemiBold" Margin="8,0,0,0" Foreground="{DynamicResource TextColor}"/>
+                    </StackPanel>
+
+                    <TextBlock Text="{Binding Nickname}" FontFamily="Lato" Margin="0,4,0,0" FontSize="23" FontWeight="Regular" Foreground="{DynamicResource DimTextColor}"/>
+                </StackPanel>
+            </StackPanel>
+        </StackPanel>
+    </DataTemplate>
+
+    <DataTemplate DataType="{x:Type vmus:UserServiceAuthVM}">
+        <Border CornerRadius="9" Width="99" Height="49" Margin="9,0" Cursor="Hand">
+            <Border.Style>
+                <Style TargetType="Border">
+                    <Setter Property="Background" Value="{Binding ServiceColor, Converter={StaticResource ColorConverter}}" />
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding ElementController.Selected}" Value="False">
+                            <Setter Property="Background" Value="#D8D8D8" />
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Border.Style>
+
+            <Border.InputBindings>
+                <MouseBinding MouseAction="LeftClick" Command="{Binding ElementController.SelectCommand}" />
+            </Border.InputBindings>
+
+            <Image ap:DataTriggerVP.FromColor="White" ap:DataTriggerVP.ToColor="#635F5F" ap:DataTriggerVP.Binding="{Binding ElementController.Selected}"
+                   ap:DataTriggerVP.DrawingImage="{Binding ServiceIconResourceKey, Converter={StaticResource ResourceKeyConverter}}" Height="35"/>
+        </Border>
+    </DataTemplate>
+
+
+    <!--#region NotificationTemplates-->
+    <DataTemplate DataType="{x:Type vmnm:MessageNotificationVM}">
+        <StackPanel Margin="35,0,0,20">
+            <Grid VerticalAlignment="Bottom" Width="502" MinHeight="110">
+                <Border Background="{DynamicResource NotificationBackground}" CornerRadius="18">
+                    <Border.Effect>
+                        <DropShadowEffect Direction="270" BlurRadius="6" ShadowDepth="2" Opacity=".06"/>
+                    </Border.Effect>
+                </Border>
+
+                <StackPanel Orientation="Vertical">
+                    <DockPanel Margin="23,15,20,0" VerticalAlignment="Top">
+                        <decorators:ShadowControl ShadowDirection="270" ShadowDepth="2" BlurRadius="6" ShadowOpacity="0.19" 
+                                                  Height="81" Width="81" CornerRadius="38.5" DockPanel.Dock="Left" VerticalAlignment="Top">
+                            <Ellipse>
+                                <Ellipse.Fill>
+                                    <ImageBrush ImageSource="{Binding SenderAvatar, Converter={StaticResource UriToImageConverter}}" Stretch="Uniform" />
+                                </Ellipse.Fill>
+                            </Ellipse>
+                        </decorators:ShadowControl>
+
+                        <StackPanel Orientation="Vertical" Margin="20,0,0,0" VerticalAlignment="Top" DockPanel.Dock="Right">
+                            <TextBlock Text="{Binding MessageTitle}" FontFamily="Lato" FontSize="22" FontWeight="Semibold"
+                                       Foreground="{DynamicResource TextColor}"/>
+
+                            <TextBlock FontFamily="Lato" FontSize="19" FontWeight="Regular"
+                                       Foreground="{DynamicResource TextColor}" TextWrapping="Wrap" Margin="0,5.7,0,0"
+                                       ap:TextExpandingAnimator.TextCanExpand="{Binding TextCanExpand, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}"
+                                       ap:TextExpandingAnimator.Trigger="{Binding TextExpanded}"
+                                       ap:InnerHyperlinkFormatter.TextToFormat="{Binding MessageText}"/>
+                        </StackPanel>
+                    </DockPanel> 
+                    
+                    <Image Source="{DynamicResource DownArrowIcon}" Width="20.06" DockPanel.Dock="Top"
+                           HorizontalAlignment="Center" Cursor="Hand" Margin="0,4,0,11"
+                           Visibility="{Binding TextCanExpand, Converter={StaticResource BoolToVisibilityConverterC}}">
+
+                        <Image.InputBindings>
+                            <MouseBinding MouseAction="LeftClick" Command="{Binding ExpandTextButtonClick}" />
+                        </Image.InputBindings>
+
+                        <Image.Style>
+                            <Style TargetType="Image">
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding TextExpanded}" Value="True">
+                                        <Setter Property="RenderTransform">
+                                            <Setter.Value>
+                                                <RotateTransform Angle="180" CenterY="5" CenterX="10.03" />
+                                            </Setter.Value>
+                                        </Setter>
+                                    </DataTrigger>
+
+                                    <DataTrigger Binding="{Binding TextExpanded}" Value="False">
+                                        <Setter Property="RenderTransform">
+                                            <Setter.Value>
+                                                <RotateTransform Angle="0" CenterY="0" CenterX="0" />
+                                            </Setter.Value>
+                                        </Setter>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Image.Style>
+                    </Image>
+                </StackPanel>
+
+                <!--<Border CornerRadius="18" Background="{DynamicResource NotificationBackground}"
+                        VerticalAlignment="Bottom" BorderThickness="1" BorderBrush="Black" Height="62"
+                        Visibility="{Binding WithAttachments, Converter={StaticResource BoolToVisibilityConverterC}}">
+                        
+                    <ItemsControl HorizontalContentAlignment="Stretch" ItemsSource="{Binding AttachmentCategories}">
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <UniformGrid Rows="1" />
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                    </ItemsControl>
+                </Border>-->
+                
+
+                <!--<DockPanel>
+                    <DockPanel DockPanel.Dock="Top">
+
+                        <DockPanel Background="Transparent">
+                            <TextBlock Text="{Binding MessageTitle}" Foreground="White"
+                                   FontFamily="Greycliff CF" FontSize="18"
+                                   FontStyle="Normal" FontWeight="Medium"
+                                   Margin="14,18,0,0" DockPanel.Dock="Top"/>
+
+                            <Grid DockPanel.Dock="Top" Margin="23,10,15,4">
+                                <DockPanel Visibility="{Binding IsVoiceMessage, Converter={StaticResource BoolToVisibilityConverterHI}}">
+                                    <TextBlock Foreground="#BCFFFFFF"  FontFamily="Open Sans" FontSize="17"
+                                               DockPanel.Dock="Top" MaxHeight="500" FontStyle="Normal" FontWeight="Regular"
+                                               TextWrapping="Wrap" Height="0" Margin="18"
+                                               ap:TextExpandingAnimator.Trigger="{Binding TextExpanded}"
+                                               ap:TextExpandingAnimator.TextCanExpand="{Binding TextCanExpand, Mode=OneWayToSource}"
+                                               ap:InnerHyperlinkFormatter.TextToFormat="{Binding MessageText}"/>
+
+                                    
+                                </DockPanel>
+
+                                --><!--TODO: Audio-->
+                                <!--<DockPanel Visibility="{Binding IsVoiceMessage, Converter={StaticResource BooleanToVisibilityConverter}}">
+                                    <controls:WaveFormControl WaveForm="{Binding VoiceMessage.WaveForm}" MaxHeight="50" DockPanel.Dock="Left" />
+
+                                    <TextBlock Foreground="#BCFFFFFF"  FontFamily="Open Sans" FontSize="17"
+                                                   DockPanel.Dock="Left" FontStyle="Normal" FontWeight="Regular"
+                                                   TextWrapping="Wrap" Margin="18" Text="{Binding VoiceMessage.AudioDuration}"/>
+                                </DockPanel>-->
+                                
+                            <!--</Grid>
+                        </DockPanel>
+                    </DockPanel>-->
+
+                    
+
+                    <!--<DockPanel DockPanel.Dock="Top" Background="#0E1016" Margin="15,0,0,0" MaxHeight="240"
+                                   Visibility="{Binding IsAttachmentCategoryOpen, Converter={StaticResource BoolToVisibilityConverterC}}">
+
+                        <ScrollViewer Margin="10,7,10,0" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Disabled"
+                                      ap:CarouselScrollController.ItemsSource="{Binding SelectedAttachmentCategory.Attachments}"
+                                      ap:CarouselScrollController.ElementsOffset="20"
+                                      ap:ScrollViewerAnimationHelper.AniHorizontalOffset="0">
+                            
+                            <ItemsControl>
+                                <ItemsControl.ItemsPanel>
+                                    <ItemsPanelTemplate>
+                                        <StackPanel Orientation="Horizontal" />
+                                    </ItemsPanelTemplate>
+                                </ItemsControl.ItemsPanel>
+                            </ItemsControl>
+                        </ScrollViewer>
+                    </DockPanel>
+                </DockPanel>-->
+            </Grid>
+        </StackPanel>
+    </DataTemplate>
+
+    <!--Attachment templates-->
+    <DataTemplate DataType="{x:Type vmnaa:AttachmentCategoryVM}" >
+        <Border>
+            <Border.InputBindings>
+                <MouseBinding MouseAction="LeftClick" Command="{Binding MenuItemClick}" />
+            </Border.InputBindings>
+
+            <!--Tile-->
+            <Border CornerRadius="23" HorizontalAlignment="Center" Padding="31,3">
+                <Border.Style>
+                    <Style TargetType="Border">
+                        <Setter Property="Background" Value="Transparent" />
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding SelectedInMenu}" Value="True">
+                                <Setter Property="Background" Value="{DynamicResource SecondColor}" />
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Border.Style>
+                
+                <!--Content-->
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" IsHitTestVisible="False">
+
+                    <!--Attachments count-->
+                    <TextBlock FontSize="33" FontWeight="Regular" FontFamily="Lato" Margin="0,2,0,0"
+                            VerticalAlignment="Center" Text="{Binding Attachments.Count}">
+
+                        <TextBlock.Style>
+                            <Style TargetType="TextBlock">
+                                <Setter Property="Foreground" Value="{DynamicResource AttachmentCategoryUnselectedTextColor}" />
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding SelectedInMenu}" Value="True">
+                                        <Setter Property="Foreground" Value="{DynamicResource AttachmentCategorySelectedTextColor}"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </TextBlock.Style>
+                    </TextBlock>
+
+                    <!--Attachments category icon-->
+                    <Image Width="42.87" Margin="13,0,0,0" ap:DataTriggerVP.DrawingImage="{Binding AttachmentsIconRK, Converter={StaticResource ResourceKeyConverter}}" 
+                        ap:DataTriggerVP.FromColor="{DynamicResource AttachmentCategoryUnselectedIconColor}" ap:DataTriggerVP.ToColor="{DynamicResource AttachmentCategorySelectedIconColor}"
+                        ap:DataTriggerVP.Binding="{Binding SelectedInMenu}" ap:DataTriggerVP.Value="True" />
+                </StackPanel>
+            </Border>
+        </Border>
+    </DataTemplate>
+    
+    <DataTemplate DataType="{x:Type vmna:ImageAttachmentVM}">
+        <Grid Margin="0,20" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <Border Background="Black" >
+                <Border.Effect>
+                    <DropShadowEffect ShadowDepth="6" BlurRadius="30" />
+                </Border.Effect>
+            </Border>
+            <Image Source="{Binding ImageSource}" Stretch="Uniform" />
+        </Grid>
+
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type vmna:VideoAttachmentVM}">
+        <Grid HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,20" x:Name="MediaElem">
+            <Grid Margin="0,0,0,3.5">
+
+                <!--<i:Interaction.Triggers>
+                    <i:EventTrigger EventName="MouseEnter">
+                        <i:InvokeCommandAction Command="{Binding MouseEnterCommand}" />
+                    </i:EventTrigger>
+
+                    <i:EventTrigger EventName="MouseLeave">
+                        <i:InvokeCommandAction Command="{Binding MouseLeaveCommand}" />
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>-->
+
+                <Border Background="Black" >
+                    <Border.Effect>
+                        <DropShadowEffect ShadowDepth="6" BlurRadius="30" />
+                    </Border.Effect>
+                </Border>
+
+                <MediaElement Source="{Binding VideoSource}" Stretch="Uniform" LoadedBehavior="Manual" UnloadedBehavior="Manual"
+                              ap:MediaElementController.VideoPlaying="{Binding IsVideoPlaying}" 
+                              ap:MediaElementController.PlayingPosition="{Binding VideoPosition, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}" />
+
+                <Image Source="{Binding PreviewImage}" Stretch="Uniform"
+                       ap:FadeInOutAnimation.Trigger="{Binding IsPreviewVisible}"/>
+
+                <DockPanel Background="#A0000000" ap:FadeInOutAnimation.Trigger="{Binding IsBlackerLayerVisible}">
+                    <Grid>
+                        <Image Height="70" Source="{DynamicResource PlayButtonIcon}" Width="40" Cursor="Hand"
+                               Visibility="{Binding IsVideoPlaying, Converter={StaticResource BoolToVisibilityConverterHI}}">
+
+                            <Image.InputBindings>
+                                <MouseBinding MouseAction="LeftClick" Command="{Binding PlayCommand}" />
+                            </Image.InputBindings>
+                        </Image>
+
+                        <Image Height="40" Source="{DynamicResource PauseButtonIcon}" Width="40" Cursor="Hand"
+                               Visibility="{Binding IsVideoPlaying, Converter={StaticResource BoolToVisibilityConverterH}}">
+
+                            <Image.InputBindings>
+                                <MouseBinding MouseAction="LeftClick" Command="{Binding PauseCommand}" />
+                            </Image.InputBindings>
+                        </Image>
+                    </Grid>
+                </DockPanel>
+            </Grid>
+
+            <controls:VideoPlayerProgressBar VerticalAlignment="Bottom" HorizontalAlignment="Stretch" 
+                                             VideoDuration="{Binding VideoDuration}"
+                                             Progress="{Binding VideoPosition}"/>
+        </Grid>
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type vmna:DocumentAttachmentVM}">
+        <Border BorderThickness="2" BorderBrush="#D1A34D" MinWidth="109" Height="147" Padding="28,21,28,8" 
+                    Background="Transparent" Margin="0,20">
+            <DockPanel>
+                <TextBlock Foreground="White" FontFamily="Greycliff CF" FontSize="23" 
+                               Text="{Binding DocumentExtension}" DockPanel.Dock="Top"
+                               HorizontalAlignment="Center"/>
+
+                <TextBlock Foreground="#A0FFFFFF" FontFamily="Roboto" FontSize="15" 
+                               Text="{Binding DocumentSize}" DockPanel.Dock="Bottom"
+                               HorizontalAlignment="Center"/>
+
+                <Grid Margin="0,17,0,20" DockPanel.Dock="Top">
+                    <Image Source="{DynamicResource DownloadIcon}" Cursor="Hand"
+                               Visibility="{Binding IsDownloadingBtnVisible, Converter={StaticResource BoolToVisibilityConverterH}}">
+
+                        <Image.InputBindings>
+                            <MouseBinding MouseAction="LeftClick" Command="{Binding DownloadCommand}" />
+                        </Image.InputBindings>
+                    </Image>
+
+                    <controls:BusyProgressIndicator Visibility="{Binding IsDownloading, Converter={StaticResource BoolToVisibilityConverterH}}" 
+                                                        Progress="{Binding DownloadingProgress}"/>
+
+                    <Image Source="{DynamicResource OpenFileIcon}" Cursor="Hand"
+                               Visibility="{Binding IsDownloaded, Converter={StaticResource BoolToVisibilityConverterH}}">
+
+                        <Image.InputBindings>
+                            <MouseBinding MouseAction="LeftClick" Command="{Binding OpenCommand}" />
+                        </Image.InputBindings>
+                    </Image>
+                </Grid>
+
+                <Border Height="33" Width="33" />
+            </DockPanel>
+        </Border>
+    </DataTemplate>
+    
+    <!--#endregion-->
+</ResourceDictionary>

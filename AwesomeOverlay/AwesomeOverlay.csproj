@@ -24,6 +24,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -33,10 +34,57 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="ByteSize, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\ByteSize.2.0.0\lib\net45\ByteSize.dll</HintPath>
+    </Reference>
+    <Reference Include="HtmlAgilityPack, Version=1.11.32.0, Culture=neutral, PublicKeyToken=bd319b19eaf3b43a, processorArchitecture=MSIL">
+      <HintPath>..\packages\HtmlAgilityPack.1.11.32\lib\Net45\HtmlAgilityPack.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Bcl.AsyncInterfaces, Version=5.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Bcl.AsyncInterfaces.5.0.0\lib\net461\Microsoft.Bcl.AsyncInterfaces.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Expression.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="Microsoft.Extensions.DependencyInjection, Version=5.0.0.1, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.DependencyInjection.5.0.1\lib\net461\Microsoft.Extensions.DependencyInjection.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.DependencyInjection.Abstractions, Version=5.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.DependencyInjection.Abstractions.5.0.0\lib\net461\Microsoft.Extensions.DependencyInjection.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Logging.Abstractions, Version=2.1.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.Logging.Abstractions.2.1.0\lib\netstandard2.0\Microsoft.Extensions.Logging.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Xaml.Behaviors, Version=1.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Xaml.Behaviors.Wpf.1.1.31\lib\net45\Microsoft.Xaml.Behaviors.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.13.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="Prism, Version=8.0.0.1909, Culture=neutral, PublicKeyToken=40ee6c3a2184dc59, processorArchitecture=MSIL">
+      <HintPath>..\packages\Prism.Core.8.0.0.1909\lib\net47\Prism.dll</HintPath>
+    </Reference>
+    <Reference Include="Prism.Wpf, Version=8.0.0.1909, Culture=neutral, PublicKeyToken=40ee6c3a2184dc59, processorArchitecture=MSIL">
+      <HintPath>..\packages\Prism.Wpf.8.0.0.1909\lib\net47\Prism.Wpf.dll</HintPath>
+    </Reference>
+    <Reference Include="protobuf-net, Version=2.4.0.0, Culture=neutral, PublicKeyToken=257b51d87d2e4d67, processorArchitecture=MSIL">
+      <HintPath>..\packages\protobuf-net.2.4.6\lib\net40\protobuf-net.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=4.0.4.1, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Runtime.CompilerServices.Unsafe.4.5.3\lib\net461\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Threading.Tasks.Extensions, Version=4.2.0.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Threading.Tasks.Extensions.4.5.4\lib\net461\System.Threading.Tasks.Extensions.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -45,6 +93,12 @@
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Xaml">
       <RequiredTargetFramework>4.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="VkNet, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\VkNet.1.62.0\lib\net461\VkNet.dll</HintPath>
+    </Reference>
+    <Reference Include="VkNet.AudioBypassService, Version=1.7.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\VkNet.AudioBypassService.1.7.0\lib\net461\VkNet.AudioBypassService.dll</HintPath>
     </Reference>
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
@@ -55,7 +109,115 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Page Include="MainWindow.xaml">
+    <Compile Include="AttachedPropertyOwners\BaseAnimationTriggerAttachedProperty.cs" />
+    <Compile Include="AttachedPropertyOwners\CarouselScrollController.cs" />
+    <Compile Include="AttachedPropertyOwners\DataTriggerVP.cs" />
+    <Compile Include="AttachedPropertyOwners\ExpandingAnimation.cs" />
+    <Compile Include="AttachedPropertyOwners\FadeInOutAnimation.cs" />
+    <Compile Include="AttachedPropertyOwners\InnerHyperlinkFormatter.cs" />
+    <Compile Include="AttachedPropertyOwners\MediaElementController.cs" />
+    <Compile Include="AttachedPropertyOwners\ScrollViewerAnimationHelper.cs" />
+    <Compile Include="AttachedPropertyOwners\TextExpandingAnimator.cs" />
+    <Compile Include="Decorators\Clipper.cs" />
+    <Compile Include="PropertyConverters\BooleanToVisibilityConverter.cs" />
+    <Compile Include="Model\UserServices\TgUserService.cs" />
+    <Compile Include="Model\UserServices\VkUserService.cs" />
+    <Compile Include="Model\Users\TgUser.cs" />
+    <Compile Include="Model\Users\VKUser.cs" />
+    <Compile Include="PropertyConverters\ColorConverter.cs" />
+    <Compile Include="PropertyConverters\ResourceKeyConverter.cs" />
+    <Compile Include="PropertyConverters\UriToImageConverter.cs" />
+    <Compile Include="UserControls\BusyProgressIndicator.xaml.cs">
+      <DependentUpon>BusyProgressIndicator.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\Input\PasswordInputControl.xaml.cs">
+      <DependentUpon>PasswordInputControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\Input\TextInputControl.xaml.cs">
+      <DependentUpon>TextInputControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\VideoPlayerProgressBar.xaml.cs">
+      <DependentUpon>VideoPlayerProgressBar.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\NotificationLayerVM.cs" />
+    <Compile Include="ViewModels\Notifications\Attachments\Abstractions\AttachmentBaseVM.cs" />
+    <Compile Include="ViewModels\Notifications\Attachments\Abstractions\AttachmentCategoryVM.cs" />
+    <Compile Include="ViewModels\Notifications\Attachments\DocumentAttachmentVM.cs" />
+    <Compile Include="ViewModels\Notifications\Attachments\ImageAttachmentVM.cs" />
+    <Compile Include="ViewModels\Notifications\Attachments\VideoAttachmentVM.cs" />
+    <Compile Include="ViewModels\Notifications\Messages\AudioMessageVM.cs" />
+    <Compile Include="ViewModels\Notifications\Messages\MessageNotificationVM.cs" />
+    <Compile Include="ViewModels\Pages\AccountsPageVM.cs" />
+    <Compile Include="ViewModels\Pages\MessagesPageVM.cs" />
+    <Compile Include="ViewModels\UserServices\UserServiceAuthVM.cs" />
+    <Compile Include="ViewModels\Users\UserVM.cs" />
+    <Compile Include="Views\NotificationLayer.xaml.cs">
+      <DependentUpon>NotificationLayer.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Pages\AccountsPage.xaml.cs">
+      <DependentUpon>AccountsPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Pages\MessagesPage.xaml.cs">
+      <DependentUpon>MessagesPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\UserServices\TgAuthorizationControl.xaml.cs">
+      <DependentUpon>TgAuthorizationControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\UserServices\VkAuthorizationControl.xaml.cs">
+      <DependentUpon>VkAuthorizationControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Users\DetailedUserView.xaml.cs">
+      <DependentUpon>DetailedUserView.xaml</DependentUpon>
+    </Compile>
+    <Page Include="Decorators\ShadowControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Resources\Colors.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Resources\Converters.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Resources\DataTemplates.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Resources\Icons.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Resources\Views.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\BusyProgressIndicator.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UserControls\Input\PasswordInputControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UserControls\Input\TextInputControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UserControls\MainMenu\MainMenuControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\MainMenu\MainMenuElement.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\VideoPlayerProgressBar.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -63,10 +225,44 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="MainWindow.xaml.cs">
+    <Compile Include="Decorators\ShadowControl.xaml.cs">
+      <DependentUpon>ShadowControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\MainMenu\MainMenuControl.xaml.cs">
+      <DependentUpon>MainMenuControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\MainMenu\MainMenuElement.xaml.cs">
+      <DependentUpon>MainMenuElement.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\MainWindowVM.cs" />
+    <Compile Include="Views\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Views\NotificationLayer.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Pages\AccountsPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Pages\MessagesPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\UserServices\TgAuthorizationControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\UserServices\VkAuthorizationControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Users\DetailedUserView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">
@@ -86,6 +282,8 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <None Include="app.manifest" />
+    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -94,5 +292,12 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\AwesomeOverlay.Core\AwesomeOverlay.Core.csproj">
+      <Project>{7AC5313C-1ED1-4A2D-BACA-EB7610C072AB}</Project>
+      <Name>AwesomeOverlay.Core</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -1,0 +1,40 @@
+﻿<Window x:Class="AwesomeOverlay.Views.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:AwesomeOverlay.Views"
+        xmlns:decorators="clr-namespace:AwesomeOverlay.Decorators"
+        xmlns:ucmm="clr-namespace:AwesomeOverlay.UserControls.MainMenu"
+        xmlns:vm="clr-namespace:AwesomeOverlay.ViewModel"
+        mc:Ignorable="d"
+        DataContext="{x:Type vm:MainWindowVM}"
+        AllowsTransparency="True" WindowStyle="None" Background="Transparent" Loaded="Window_Loaded" 
+        Title="MainWindow"  WindowStartupLocation="CenterScreen" Height="1080" Width="1920"
+        Topmost="True" ShowInTaskbar="False">
+
+    <Grid>
+        <decorators:ShadowControl ShadowDirection="315" ShadowDepth="0" BlurRadius="25" CornerRadius="31" ShadowOpacity=".12" Height="864" Width="1639"
+                                  Visibility="{Binding MainWindowVisible, Converter={StaticResource BoolToVisibilityConverterC}}">
+            
+            <Border CornerRadius="31" Background="{DynamicResource MainWindowBackground}">
+                <DockPanel>
+                    <!--Menu-->
+                    <decorators:ShadowControl ShadowDirection="360" ShadowDepth="1" BlurRadius="21" ShadowOpacity=".05">
+                        <Border CornerRadius="31,0,0,31" Width="85" 
+                            Background="{DynamicResource AppMenuBackground}"/>
+
+                    </decorators:ShadowControl>
+
+                    <!--Current page frame-->
+                    <Border CornerRadius="31">
+                        <Frame NavigationUIVisibility="Hidden" 
+                               Content="{Binding CurrentPage}" />
+                    </Border>
+                </DockPanel>
+            </Border>
+        </decorators:ShadowControl>
+        
+        <local:NotificationLayer />
+    </Grid>
+</Window>

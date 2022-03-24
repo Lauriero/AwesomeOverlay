@@ -1,0 +1,32 @@
+﻿<UserControl x:Class="AwesomeOverlay.UserControls.MainMenu.MainMenuElement"
+             Name="Control"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:AwesomeOverlay.UserControls.MainMenu"
+             xmlns:ap="clr-namespace:AwesomeOverlay.AttachedPropertyOwners"
+             mc:Ignorable="d" 
+             d:DesignHeight="100" d:DesignWidth="107">
+    
+    <Border Background="Transparent" Cursor="Hand">
+        <Border.InputBindings>
+            <MouseBinding MouseAction="RightClick" Command="{Binding ElementName=Control, Path=Command}"/>
+        </Border.InputBindings>
+
+        <Image Height="58.49" Margin="0,22.5" 
+               ap:DataTriggerVP.DrawingImage="{Binding ElementName=Control, Path=ImageSource}"
+               ap:DataTriggerVP.Binding="{Binding ElementName=Control, Path=Selected}"
+               ap:DataTriggerVP.Value="True" ap:DataTriggerVP.FromColor="#929292" 
+               ap:DataTriggerVP.ToColor="#FFFFFF">
+
+            <ap:DataTriggerVP.Animation>
+                <ColorAnimation Duration="0:0:0:.38">
+                    <ColorAnimation.EasingFunction>
+                        <ExponentialEase EasingMode="EaseInOut" />
+                    </ColorAnimation.EasingFunction>
+                </ColorAnimation>
+            </ap:DataTriggerVP.Animation>
+        </Image>
+    </Border>
+</UserControl>

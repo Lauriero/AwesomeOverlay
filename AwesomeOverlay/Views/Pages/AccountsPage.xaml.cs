@@ -13,14 +13,14 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace AwesomeOverlay
+namespace AwesomeOverlay.View.Pages
 {
     /// <summary>
-    /// Логика взаимодействия для MainWindow.xaml
+    /// Логика взаимодействия для AccountsPage.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class AccountsPage : Page
     {
-        public MainWindow()
+        public AccountsPage()
         {
             InitializeComponent();
         }

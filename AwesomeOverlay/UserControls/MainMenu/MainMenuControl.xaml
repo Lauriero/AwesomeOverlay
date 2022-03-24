@@ -1,0 +1,21 @@
+﻿<UserControl x:Class="AwesomeOverlay.UserControls.MainMenu.MainMenuControl"
+             Name="Control"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:AwesomeOverlay.UserControls.MainMenu"
+             mc:Ignorable="d"
+             d:DesignHeight="485" d:DesignWidth="107" Loaded="Control_Loaded">
+    
+    <Grid>
+        <!--Slider-->
+        <Border DockPanel.Dock="Left" Height="90" VerticalAlignment="Top" Width="9"
+                Background="{DynamicResource AccentColor}" CornerRadius="5"
+                Name="Slider" HorizontalAlignment="Left"/>
+
+        <!--Items-->
+        <ItemsControl ItemsSource="{Binding ElementName=Control, Path=MenuElements}" 
+                      DockPanel.Dock="Left" Margin="4,0,0,0" Name="MenuElementsControl"/>
+    </Grid>
+</UserControl>

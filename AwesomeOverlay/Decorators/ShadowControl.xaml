@@ -1,0 +1,19 @@
+﻿<UserControl x:Class="AwesomeOverlay.Decorators.ShadowControl"
+             Name="Control"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:AwesomeOverlay.Decorators"
+             mc:Ignorable="d" Loaded="Control_Loaded"
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Grid>
+        <Border Background="#000000" Name="Shadower" Margin=".7">
+            <Border.Effect>
+                <DropShadowEffect Direction="{Binding ShadowDirection, ElementName=Control}" ShadowDepth="{Binding ShadowDepth, ElementName=Control}"
+                                  BlurRadius="{Binding BlurRadius, ElementName=Control}" Opacity="{Binding ShadowOpacity, ElementName=Control}" Color="{Binding ShadowColor, ElementName=Control}"/>
+            </Border.Effect>
+        </Border>
+        <ContentControl Content="{Binding Child, ElementName=Control}" />
+    </Grid>
+</UserControl>

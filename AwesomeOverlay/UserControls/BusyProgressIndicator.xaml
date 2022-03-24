@@ -1,0 +1,133 @@
+﻿<UserControl x:Class="AwesomeOverlay.UserControls.BusyProgressIndicator"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:draw="http://schemas.microsoft.com/expression/2010/drawing"
+             xmlns:local="clr-namespace:AwesomeOverlay.UserControls"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="450">
+    <Viewbox Stretch="Uniform">
+        <Grid>
+            <Grid.RenderTransform>
+                <!-- giving the transform a name tells the framework not to freeze it -->
+                <RotateTransform x:Name="noFreeze" CenterX="225" CenterY="225" />
+            </Grid.RenderTransform>
+            <Grid.Style>
+                <Style TargetType="Grid">
+                    <Style.Triggers>
+                        <Trigger Property="IsVisible" Value="True">
+                            <Trigger.EnterActions>
+                                <BeginStoryboard Name="Rotate">
+                                    <Storyboard RepeatBehavior="Forever">
+                                        <DoubleAnimation Storyboard.TargetProperty="(Rectangle.RenderTransform).(RotateTransform.Angle)" To="360"
+                                                                 Duration="0:0:0:1.5" />
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </Trigger.EnterActions>
+                            <Trigger.ExitActions>
+                                <StopStoryboard BeginStoryboardName="Rotate" />
+                            </Trigger.ExitActions>
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </Grid.Style>
+
+            <draw:Arc ArcThickness="40" Height="450" Stretch="None" Width="450" Fill="#28FFFFFF"
+                      StartAngle="0" EndAngle="360"/>
+
+            <draw:Arc ArcThickness="40" Height="450" Stretch="None" Width="450" Fill="White" EndAngle="0"
+                      x:Name="ProgressArc"/>
+        </Grid>
+        
+        <!--<StackPanel Orientation="Horizontal" Background="Transparent">
+            <Border Width="40" Height="40" Margin="27,0" >
+                <Rectangle Fill="White" VerticalAlignment="Center" HorizontalAlignment="Center">
+                    <Rectangle.Style>
+                        <Style TargetType="Rectangle">
+                            <Style.Triggers>
+                                <Trigger Property="IsVisible" Value="True">
+                                    <Trigger.EnterActions>
+                                        <BeginStoryboard Name="Square1A">
+                                            <Storyboard RepeatBehavior="Forever">
+                                                <DoubleAnimation Storyboard.TargetProperty="Width" From="0" To="40"
+                                                                 Duration="0:0:0:0.5" />
+                                                <DoubleAnimation Storyboard.TargetProperty="Width" From="40" To="0"
+                                                                 Duration="0:0:0:0.5" BeginTime="0:0:0:0.5"/>
+                                                <DoubleAnimation Storyboard.TargetProperty="Height" From="0" To="40"
+                                                                 Duration="0:0:0:0.5"/>
+                                                <DoubleAnimation Storyboard.TargetProperty="Height" From="40" To="0"
+                                                                 Duration="0:0:0:0.5" BeginTime="0:0:0:0.5"/>
+                                            </Storyboard>
+                                        </BeginStoryboard>
+                                    </Trigger.EnterActions>
+                                    <Trigger.ExitActions>
+                                        <StopStoryboard BeginStoryboardName="Square1A" />
+                                    </Trigger.ExitActions>
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Rectangle.Style>
+                </Rectangle>
+            </Border>
+            <Border Width="40" Height="40" Margin="27,0">
+                <Rectangle Fill="White" VerticalAlignment="Center" HorizontalAlignment="Center">
+                    <Rectangle.Style>
+                        <Style TargetType="Rectangle">
+                            <Style.Triggers>
+                                <Trigger Property="IsVisible" Value="True">
+                                    <Trigger.EnterActions>
+                                        <BeginStoryboard Name="Square1A">
+                                            <Storyboard RepeatBehavior="Forever" BeginTime="0:0:0:0.16">
+                                                <DoubleAnimation Storyboard.TargetProperty="Width" From="0" To="40"
+                                                                 Duration="0:0:0:0.5" />
+                                                <DoubleAnimation Storyboard.TargetProperty="Width" From="40" To="0"
+                                                                 Duration="0:0:0:0.5" BeginTime="0:0:0:0.5"/>
+                                                <DoubleAnimation Storyboard.TargetProperty="Height" From="0" To="40"
+                                                                 Duration="0:0:0:0.5"/>
+                                                <DoubleAnimation Storyboard.TargetProperty="Height" From="40" To="0"
+                                                                 Duration="0:0:0:0.5" BeginTime="0:0:0:0.5"/>
+                                            </Storyboard>
+                                        </BeginStoryboard>
+                                    </Trigger.EnterActions>
+                                    <Trigger.ExitActions>
+                                        <StopStoryboard BeginStoryboardName="Square1A" />
+                                    </Trigger.ExitActions>
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Rectangle.Style>
+                </Rectangle>
+            </Border>
+            <Border Width="40" Height="40" Margin="27,0">
+                <Rectangle Fill="White" VerticalAlignment="Center" HorizontalAlignment="Center">
+                    <Rectangle.Style>
+                        <Style TargetType="Rectangle">
+                            <Style.Triggers>
+                                <Trigger Property="IsVisible" Value="True">
+                                    <Trigger.EnterActions>
+                                        <BeginStoryboard Name="Square1A">
+                                            <Storyboard RepeatBehavior="Forever" BeginTime="0:0:0:0.32">
+                                                <DoubleAnimation Storyboard.TargetProperty="Width" From="0" To="40"
+                                                                 Duration="0:0:0:0.5" />
+                                                <DoubleAnimation Storyboard.TargetProperty="Width" From="40" To="0"
+                                                                 Duration="0:0:0:0.5" BeginTime="0:0:0:0.5"/>
+                                                <DoubleAnimation Storyboard.TargetProperty="Height" From="0" To="40"
+                                                                 Duration="0:0:0:0.5"/>
+                                                <DoubleAnimation Storyboard.TargetProperty="Height" From="40" To="0"
+                                                                 Duration="0:0:0:0.5" BeginTime="0:0:0:0.5"/>
+                                            </Storyboard>
+                                        </BeginStoryboard>
+                                    </Trigger.EnterActions>
+                                    <Trigger.ExitActions>
+                                        <StopStoryboard BeginStoryboardName="Square1A" />
+                                    </Trigger.ExitActions>
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Rectangle.Style>
+                </Rectangle>
+            </Border>-->
+        <!--</StackPanel>-->
+    </Viewbox>
+</UserControl>

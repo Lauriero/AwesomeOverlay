@@ -1,0 +1,178 @@
+﻿<Page x:Class="AwesomeOverlay.View.Pages.AccountsPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+      xmlns:local="clr-namespace:AwesomeOverlay.View.Pages"
+      xmlns:vu="clr-namespace:AwesomeOverlay.Views.Users"
+      xmlns:decorators="clr-namespace:AwesomeOverlay.Decorators"
+      xmlns:vmp="clr-namespace:AwesomeOverlay.ViewModel.Pages"
+      xmlns:b="clr-namespace:AwesomeOverlay.Core.Utilities.Behaviors;assembly=AwesomeOverlay.Core"
+      mc:Ignorable="d" 
+      d:DesignHeight="846" d:DesignWidth="1539"
+      Title="AccountsPage">
+
+    <Border CornerRadius="0,31,31,0" Background="{DynamicResource MainWindowBackground}">
+        <DockPanel>
+            <!--Right panel-->
+            <Grid DockPanel.Dock="Right" Width="433">
+                
+                <!--Accounts view-->
+                <Border CornerRadius="0,31,31,0" Background="{DynamicResource RightPanelBackground}" 
+                        Padding="0,73,0,0" Visibility="{Binding IsAuthViewVisible, Converter={StaticResource BoolToVisibilityConverterHI}}">
+                    
+                    <DockPanel>
+                        <DockPanel DockPanel.Dock="Top">
+                            <Image DockPanel.Dock="Right" Width="40.64" Margin="0,0,61,0"
+                               Source="{DynamicResource PlusIcon}" Cursor="Hand">
+
+                                <Image.InputBindings>
+                                    <MouseBinding MouseAction="LeftClick" Command="{Binding AddUserCommand}"/>
+                                </Image.InputBindings>
+                            </Image>
+
+                            <TextBlock Text="Аккаунты" FontFamily="Lato" 
+                                   Margin="53,0,0,0" FontSize="46" FontWeight="Bold" 
+                                   Foreground="{DynamicResource TextColor}" />
+
+                        </DockPanel>
+
+                        <Grid>
+                            <StackPanel Orientation="Vertical" Margin="0,150,0,0">
+                                <TextBlock FontFamily="Lato" FontSize="35" FontWeight="Heavy"
+                                       Text="Тут пока ничего нет" TextAlignment="Center"
+                                       Foreground="{DynamicResource PlaceholderTextColor}"/>
+
+                                <TextBlock FontFamily="Lato" FontSize="29" FontWeight="SemiBold"  TextAlignment="Center"
+                                       Foreground="{DynamicResource PlaceholderDimTextColor}"
+                                       Margin="0,17,0,0" TextWrapping="Wrap">
+                                Добавьте первого <LineBreak /> пользователя
+                                </TextBlock>
+                            </StackPanel>
+
+                            <ScrollViewer VerticalScrollBarVisibility="Hidden" HorizontalScrollBarVisibility="Disabled" Margin="0,51,0,31" Background="{DynamicResource RightPanelBackground}">
+                                <ScrollViewer.Style>
+                                    <Style TargetType="ScrollViewer">
+                                        <Setter Property="Visibility" Value="Visible" />
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding Users.Count}" Value="0">
+                                                <Setter Property="Visibility" Value="Hidden" />
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </ScrollViewer.Style>
+
+                                <ItemsControl ItemsSource="{Binding Users}">
+                                    <i:Interaction.Behaviors>
+                                        <b:PreviousDataRefreshBehavior />
+                                    </i:Interaction.Behaviors>
+                                </ItemsControl>
+                            </ScrollViewer>
+                        </Grid>
+                    </DockPanel>
+                </Border>
+
+                <!--Authorization view-->
+                <Border CornerRadius="0,31,31,0" Background="{DynamicResource RightPanelBackground}" 
+                        Padding="0,73,0,0" Visibility="{Binding IsAuthViewVisible, Converter={StaticResource BoolToVisibilityConverterH}}">
+
+                    <DockPanel>
+                        
+                        <!--Header-->
+                        <StackPanel DockPanel.Dock="Top" Margin="38,0,0,0" Orientation="Horizontal">
+                            <Image Source="{DynamicResource BackIcon}" Height="25.75" Cursor="Hand">
+                                <Image.InputBindings>
+                                    <MouseBinding MouseAction="LeftClick" Command="{Binding BackToAccountsCommand}" />
+                                </Image.InputBindings>
+                            </Image>
+
+                            <TextBlock Text="Авторизация" FontFamily="Lato" 
+                                       Margin="25,0,0,0" FontSize="46" FontWeight="Bold" 
+                                       Foreground="{DynamicResource TextColor}" />
+                        </StackPanel>
+
+                        <!--Buttons-->
+                        <TextBlock DockPanel.Dock="Bottom" HorizontalAlignment="Right" Margin="0,0,55,35"
+                                   Text="Войти" FontFamily="Lato" FontSize="34" FontWeight="SemiBold"
+                                   Foreground="{DynamicResource SecondTextColor}" Cursor="Hand">
+
+                            <TextBlock.InputBindings>
+                                <MouseBinding MouseAction="LeftClick" Command="{Binding SelectedUserService.AuthorizeCommand}" />
+                            </TextBlock.InputBindings>
+                        </TextBlock>
+
+                        <!--Content-->
+                        <StackPanel Orientation="Vertical" Margin="0,77,0,0">
+                            
+                            <!--User services selector-->
+                            <ItemsControl ItemsSource="{Binding UserAuthorizers}" HorizontalAlignment="Left" Margin="36,0,0,0">
+                                <ItemsControl.ItemsPanel>
+                                    <ItemsPanelTemplate>
+                                        <StackPanel Orientation="Horizontal"/>
+                                    </ItemsPanelTemplate>
+                                </ItemsControl.ItemsPanel>
+                            </ItemsControl>
+
+                            <StackPanel Orientation="Vertical" Margin="0,68,0,0">
+                                
+                                <!--Warning tile-->
+                                <decorators:ShadowControl ShadowDirection="270" ShadowDepth="4" BlurRadius="4" ShadowColor="{DynamicResource WarningTileBackgroundColor}"
+                                                          ShadowOpacity=".43" Margin="43,0,0,36" HorizontalAlignment="Left">
+                                    
+                                    <Border Visibility="{Binding SelectedUserService.IsErrorMessageVisible, Converter={StaticResource BoolToVisibilityConverterC}}"
+                                            CornerRadius="6" Background="{DynamicResource WarningTileBackground}" Height="47" >
+                                        
+                                        <StackPanel Orientation="Horizontal" Margin="15,0,13,0" VerticalAlignment="Center">
+                                            <Image Source="{DynamicResource WarningIcon}" Width="28.61" />
+
+                                            <TextBlock Text="{Binding SelectedUserService.ErrorMessage}" FontFamily="Lato" Margin="16,0,0,0"
+                                               FontWeight="SemiBold" FontSize="19" Foreground="{DynamicResource WarningTileTextColor}"
+                                               VerticalAlignment="Center"/>
+                                        </StackPanel>
+                                    </Border>
+                                </decorators:ShadowControl>
+
+                                <!--Authorization view-->
+                                <ContentControl Content="{Binding SelectedUserService.AuthorizationView}" />
+                            </StackPanel>
+                        </StackPanel>
+                    </DockPanel>
+                </Border>
+            </Grid>
+            
+            
+            <!--Content-->
+            <Grid>
+                <!--Placeholder-->
+                <StackPanel Orientation="Vertical" VerticalAlignment="Center">
+                    <TextBlock FontFamily="Lato" FontSize="50" FontWeight="Heavy"
+                               Text="Пользователь не выбран" TextAlignment="Center"
+                               Foreground="{DynamicResource PlaceholderTextColor}"/>
+
+                    <TextBlock FontFamily="Lato" FontSize="29" FontWeight="SemiBold" TextAlignment="Center"
+                               Foreground="{DynamicResource PlaceholderDimTextColor}"
+                               Margin="0,17,0,0" TextWrapping="Wrap">
+                        Авторизуйтесь в какой-либо из систем <LineBreak /> чтобы изменять настройки пользователя
+                    </TextBlock>
+                </StackPanel>
+
+                <!--User settings-->
+                <Border Background="{DynamicResource MainWindowBackground}">
+                    <Border.Style>
+                        <Style TargetType="Border">
+                            <Setter Property="Visibility" Value="Visible" />
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding SelectedUser}" Value="{x:Null}">
+                                    <Setter Property="Visibility" Value="Hidden" />
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Border.Style>
+
+                    <vu:DetailedUserView DataContext="{Binding SelectedUser}"/>
+                </Border>
+            </Grid>
+        </DockPanel>
+    </Border>
+</Page>

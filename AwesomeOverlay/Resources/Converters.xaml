@@ -1,0 +1,13 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:AwesomeOverlay.Resources"
+                    xmlns:c="clr-namespace:AwesomeOverlay.PropertyConverters">
+
+    <c:ColorConverter x:Key="ColorConverter" />
+    <c:ResourceKeyConverter x:Key="ResourceKeyConverter" />
+    <c:UriToImageConverter x:Key="UriToImageConverter" />
+
+    <c:BooleanToVisibilityConverter x:Key="BoolToVisibilityConverterC" FalseValue="Collapsed" />
+    <c:BooleanToVisibilityConverter x:Key="BoolToVisibilityConverterH" FalseValue="Hidden"/>
+    <c:BooleanToVisibilityConverter x:Key="BoolToVisibilityConverterHI" FalseValue="Hidden" Inverted="True"/>
+</ResourceDictionary>
